@@ -1,4 +1,5 @@
 # Springboot-EmployeeManagement-CRUD
+Simple Employee Management with Pagination Spring boot CRUD App using Spring Boot framework, Thymeleaf, Spring JPA and Boostrap 4
 
 # Home / List of All Employees:
 ![1](https://user-images.githubusercontent.com/91146041/204871017-4c78cfd7-789d-4468-bdbd-90e000be69bc.png)

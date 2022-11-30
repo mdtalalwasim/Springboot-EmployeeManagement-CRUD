@@ -35,8 +35,8 @@
 				<li class="nav-item active"><a class="nav-link" href="/">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item active"><a class="nav-link" href="addEmployee">Add
-						Employee</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="addEmployee">Add Employee</a></li>
 				<!-- <li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -62,16 +62,16 @@
 
 
 	<!-- navbar End -->
-	
+
 	<!-- Employee added msg -->
-	
+
 	<div th:if="${session.msg}">
 		<div th:text="${session.msg}" class="alert alert-success" role="alert">
-			
+
 		</div>
 		<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
 	</div>
-	
+
 	<!-- End of Employee added msg -->
 
 
@@ -80,42 +80,64 @@
 	<!-- table code -->
 
 	<div class="container p-5">
-		
+
 		<table class="table table-striped">
-		<thead class="bg-info text-white">
-		<h3 class="text-center text-primary">List of all Employees</h3>
-			<tr>
-				<th scope="col">Id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Address</th>
-				<th scope="col">Phone</th>
-				<th scope="col">Salary</th>
-				<th scope="col">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="e : ${emp}">
-				<th th:text="${e.empId}">1</th>
-				<td th:text="${e.empName}"></td>
-				<td th:text="${e.empEmail}"></td>
-				<td th:text="${e.empAddress}"></td>
-				<td th:text="${e.empPhone}"></td>
-				<td th:text="${e.empSalary}"></td>
-				<td>
-				<a class="btn btn-sm btn-primary text-white" href="editEmployee" th:href="@{/editEmployee/{empId}(empId=${e.empId})}">Edit</a>
-				<a class="btn btn-sm btn-danger text-white" th:href="@{/deleteEmployee/{empId}(empId=${e.empId})}">Delete</a>
-				</td>
-			</tr>
-			
-			
-		</tbody>
-	</table> 
-		
+			<thead class="bg-info text-white">
+				<h3 class="text-center text-primary">List of all Employees</h3>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Address</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Salary</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="e : ${emp}">
+					<th th:text="${e.empId}">1</th>
+					<td th:text="${e.empName}"></td>
+					<td th:text="${e.empEmail}"></td>
+					<td th:text="${e.empAddress}"></td>
+					<td th:text="${e.empPhone}"></td>
+					<td th:text="${e.empSalary}"></td>
+					<td><a class="btn btn-sm btn-primary text-white"
+						href="editEmployee"
+						th:href="@{/editEmployee/{empId}(empId=${e.empId})}">Edit</a> <a
+						class="btn btn-sm btn-danger text-white"
+						th:href="@{/deleteEmployee/{empId}(empId=${e.empId})}">Delete</a>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
 	</div>
 
 
 	<!-- end of table code -->
+
+	<!-- Pagination Code -->
+	<div class="container">
+	
+	<!-- <p>Total Employee : [[${totalItems}]]</p> -->
+	<p>Total Pages : [[${totalPages}]]</p>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li th:if="${currentPage !=0}" class="page-item"><a class="page-link active" th:href="@{'/page/'+${currentPage-1}}">Previous</a></li>
+				
+				<li th:each="i : ${#numbers.sequence(1,totalPages)}" th:classappend="${currentPage==i-1 ? 'active' : '' }"  class="page-item">
+				
+				<a th:href="@{'/page/'+${i-1}}" class="page-link">[[${i}]]</a></li>
+				
+				<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" th:href="@{'/page/'+${currentPage+1}}">Next</a></li>
+			</ul>
+		</nav>
+
+	</div>
+	<!-- Pagination Code -->
 
 
 
